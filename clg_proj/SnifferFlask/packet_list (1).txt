@@ -1,0 +1,15 @@
+Non-IP packet detected.
+Non-IP packet detected.
+Non-IP packet detected.
+Non-IP packet detected.
+TCP Packet: 192.168.1.35:60398 --> 54.235.101.184:443
+TCP Packet: 54.235.101.184:443 --> 192.168.1.35:60398
+UDP Packet: 192.168.1.67:63639 --> 239.255.255.250:1900
+Non-IP packet detected.
+TCP Packet: 192.168.1.35:59230 --> 34.237.73.95:443
+UDP Packet: 192.168.1.67:63639 --> 239.255.255.250:1900
+TCP Packet: 34.237.73.95:443 --> 192.168.1.35:59230
+Non-IP packet detected.
+UDP Packet: 192.168.1.67:63639 --> 239.255.255.250:1900
+TCP Packet: 192.168.1.35:60484 --> 108.158.251.56:443
+TCP Packet: 108.158.251.56:443 --> 192.168.1.35:60484

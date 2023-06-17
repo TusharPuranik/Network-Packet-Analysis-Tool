@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PCAP Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <h1>PCAP Dashboard</h1>
+    <p>Filename: {{ filename }}</p>
+    <!-- Filter form -->
+    <form action="/dashboard" method="get">
+      <label for="filter">Filter:</label>
+      <input
+        type="text"
+        name="filter"
+        id="filter"
+        placeholder="Enter a filter..."
+      />
+      <input type="submit" value="Apply" />
+    </form>
+
+    <!-- Graphs -->
+    <h2>Packet Statistics</h2>
+    <div id="packet-stats"></div>
+
+    <h2>Protocol Distribution</h2>
+    <div id="protocol-dist"></div>
+
+    <script>
+      // Generate Packet Statistics
+      var packetStats = {
+          'Total Packets': {{ pcap_df.shape[0] }},
+          'Unique Source IPs': {{ pcap_df['Source IP'].nunique() }},
+          'Unique Destination IPs': {{ pcap_df['Destination IP'].nunique() }},
+          // Add more packet statistics as needed
+      };
+
+      var packetStatsData = [{
+          x: Object.keys(packetStats),
+          y: Object.values(packetStats),
+          type: 'bar'
+      }];
+
+      var packetStatsLayout = {
+          title: 'Packet Statistics'
+      };
+
+      Plotly.newPlot('packet-stats', packetStatsData, packetStatsLayout);
+
+      // Generate Protocol Distribution
+      var protocolCounts = {};
+
+      {% for protocol in pcap_df['Protocol'].unique() %}
+      protocolCounts['{{ protocol }}'] = {{ pcap_df[pcap_df['Protocol'] == protocol].shape[0] }};
+      {% endfor %}
+
+      var protocolDistData = [{
+          values: Object.values(protocolCounts),
+          labels: Object.keys(protocolCounts),
+          type: 'pie'
+      }];
+
+      var protocolDistLayout = {
+          title: 'Protocol Distribution'
+      };
+
+      Plotly.newPlot('protocol-dist', protocolDistData, protocolDistLayout);
+    </script>
+  </body>
+</html>
